@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import JournalEntryForm from '../../components/JournalEntryForm/JournalEntryForm';
 import * as journalEntriesAPI from '../../utilities/journalEntries-api';
+import { getUser } from '../../utilities/users-service';
 
 export default function Profile() {
   const [entries, setEntries] = useState([]);
   const [error, setError] = useState(null);
+  const user = getUser();
 
   useEffect(() => {
     async function fetchEntries() {
       try {
-        const entriesData = await journalEntriesAPI.getAll();
+        const entriesData = await journalEntriesAPI.getByUser(user._id);
         setEntries(entriesData);
       } catch (error) {
         console.error('Error fetching entries:', error);
@@ -18,14 +20,14 @@ export default function Profile() {
       }
     }
     fetchEntries();
-  }, []);
+  }, [user._id]);
 
   async function handleCreateEntry(newEntry) {
     try {
       console.log('Creating entry with data:', newEntry);
       const createdEntry = await journalEntriesAPI.create({
         ...newEntry,
-        user: null // Add user field
+        user: null
       });
       setEntries((prevEntries) => [...prevEntries, createdEntry]);
     } catch (error) {
@@ -54,10 +56,16 @@ export default function Profile() {
                 className="entry-link"
               >
                 <div className="entry">
-                  <img className="entry-image" src={entry.image} alt={entry.title} />
+                  {entry.images && entry.images.length > 0 && (
+                    <img
+                      className="entry-image"
+                      src={entry.images[0]}
+                      alt={entry.title}
+                    />
+                  )}
                   <div className="entry-content">
                     <h3 className="entry-title">{entry.title}</h3>
-                    <p className="entry-date">{entry.date}</p>
+                    <p className="entry-date">{new Date(entry.date).toLocaleDateString()}</p>
                     <p className="entry-excerpt">{entry.excerpt}</p>
                   </div>
                 </div>

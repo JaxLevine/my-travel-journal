@@ -23,6 +23,7 @@ export default function App() {
               <Route path="/profile" element={<Profile/>} />
               <Route path="/home" element={<Home />} />
               <Route path="/entries/:id/edit" element={<JournalEntryEditForm />} />
+              <Route path="/entries/:id/view" element={<JournalEntryDetails />} />
               <Route path="/entries/:id" element={<JournalEntryDetails />} />
             </Routes>
           </>

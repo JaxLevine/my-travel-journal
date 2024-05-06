@@ -18,6 +18,7 @@ const userSchema = new Schema({
     minLength: 3,
     required: true
   },
+  following: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   journalEntries: [{ type: Schema.Types.ObjectId, ref: 'JournalEntry' }]
 }, {
   timestamps: true,

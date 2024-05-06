@@ -5,6 +5,10 @@ export function getAll() {
   return sendRequest(BASE_URL);
 }
 
+export function getByUser(userId) {
+  return sendRequest(`${BASE_URL}/user/${userId}`);
+}
+
 export function create(entryData) {
   return sendRequest(BASE_URL, 'POST', entryData);
 }

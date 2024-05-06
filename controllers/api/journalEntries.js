@@ -1,18 +1,32 @@
 const JournalEntry = require('../../models/journalEntry');
+const User = require('../../models/user');
+
+
+async function getByUser(req, res) {
+  try {
+    const journalEntries = await JournalEntry.find({ user: req.params.userId })
+      .populate('user', 'name');
+    res.json(journalEntries);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}
 
 module.exports = {
   create,
   index,
   show,
   update,
-  delete: deleteEntry
+  delete: deleteEntry,
+  getByUser
 };
 
 async function create(req, res) {
   try {
     const journalEntry = await JournalEntry.create({
       ...req.body,
-      user: req.user._id
+      user: req.user._id,
+      images: req.body.images // Add images field
     });
     res.json(journalEntry);
   } catch (err) {
@@ -22,7 +36,10 @@ async function create(req, res) {
 
 async function index(req, res) {
   try {
-    const journalEntries = await JournalEntry.find({ user: req.user._id });
+    // Find all journal entries
+    const journalEntries = await JournalEntry.find()
+      .populate('user', 'name');
+
     res.json(journalEntries);
   } catch (err) {
     res.status(500).json(err);
@@ -31,10 +48,8 @@ async function index(req, res) {
 
 async function show(req, res) {
   try {
-    const journalEntry = await JournalEntry.findOne({
-      _id: req.params.id,
-      user: req.user._id
-    });
+    const journalEntry = await JournalEntry.findById(req.params.id)
+      .populate('user', 'name');
     if (!journalEntry) {
       return res.status(404).json({ message: 'Journal entry not found' });
     }
@@ -48,7 +63,7 @@ async function update(req, res) {
   try {
     const updatedEntry = await JournalEntry.findOneAndUpdate(
       { _id: req.params.id, user: req.user._id },
-      req.body,
+      { ...req.body, images: req.body.images }, // Update images field
       { new: true }
     );
     if (!updatedEntry) {
