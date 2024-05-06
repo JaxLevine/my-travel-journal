@@ -1,6 +1,6 @@
+// journalEntries.js (server-side)
 const JournalEntry = require('../../models/journalEntry');
 const User = require('../../models/user');
-
 
 async function getByUser(req, res) {
   try {
@@ -25,8 +25,7 @@ async function create(req, res) {
   try {
     const journalEntry = await JournalEntry.create({
       ...req.body,
-      user: req.user._id,
-      images: req.body.images // Add images field
+      user: req.user._id
     });
     res.json(journalEntry);
   } catch (err) {
@@ -36,7 +35,6 @@ async function create(req, res) {
 
 async function index(req, res) {
   try {
-    // Find all journal entries
     const journalEntries = await JournalEntry.find()
       .populate('user', 'name');
 
@@ -45,6 +43,7 @@ async function index(req, res) {
     res.status(500).json(err);
   }
 }
+
 
 async function show(req, res) {
   try {
@@ -63,7 +62,7 @@ async function update(req, res) {
   try {
     const updatedEntry = await JournalEntry.findOneAndUpdate(
       { _id: req.params.id, user: req.user._id },
-      { ...req.body, images: req.body.images }, // Update images field
+      req.body,
       { new: true }
     );
     if (!updatedEntry) {

@@ -1,3 +1,4 @@
+// JournalEntryEditForm.jsx
 import React, { useState, useEffect } from 'react';
 
 export default function JournalEntryEditForm({ entry, onClose, onUpdate }) {
@@ -5,7 +6,7 @@ export default function JournalEntryEditForm({ entry, onClose, onUpdate }) {
     title: '',
     content: '',
     date: '',
-    images: []
+    mediaUrls: []
   });
 
   useEffect(() => {
@@ -13,7 +14,7 @@ export default function JournalEntryEditForm({ entry, onClose, onUpdate }) {
       title: entry.title,
       content: entry.content,
       date: entry.date,
-      images: [] // Reset the images array
+      mediaUrls: entry.mediaUrls || []
     });
   }, [entry]);
 
@@ -24,28 +25,10 @@ export default function JournalEntryEditForm({ entry, onClose, onUpdate }) {
     });
   }
 
-  function handleImageChange(e) {
-    setFormData({
-      ...formData,
-      images: Array.from(e.target.files)
-    });
-  }
-
   async function handleSubmit(e) {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.append('title', formData.title);
-    formData.append('content', formData.content);
-    formData.append('date', formData.date);
-    formData.images.forEach(image => formData.append('images', image));
-
     try {
-      await fetch(`/api/journalEntries/${entry._id}`, {
-        method: 'PUT',
-        body: formData
-      });
-      onUpdate();
+      await onUpdate(formData);
     } catch (error) {
       console.error('Error updating entry:', error);
     }
@@ -82,15 +65,6 @@ export default function JournalEntryEditForm({ entry, onClose, onUpdate }) {
             value={formData.date}
             onChange={handleChange}
             required
-          />
-        </div>
-        <div>
-          <label>Images:</label>
-          <input
-            type="file"
-            multiple
-            accept="image/*"
-            onChange={handleImageChange}
           />
         </div>
         <button type="submit">Update Entry</button>
