@@ -7,9 +7,9 @@ const journalEntrySchema = new Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  location: { type: Schema.Types.ObjectId, ref: 'Location' },
+  location: { type: String }, // Add this line
   multimedia: [{ type: Schema.Types.ObjectId, ref: 'Multimedia' }],
-  mediaUrls: [{ type: String }] // Add this field
+  mediaUrls: [{ type: String }]
 }, { timestamps: true });
 
 module.exports = mongoose.model('JournalEntry', journalEntrySchema);

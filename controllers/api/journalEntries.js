@@ -24,7 +24,8 @@ async function create(req, res) {
   try {
     const journalEntry = await JournalEntry.create({
       ...req.body,
-      user: req.user._id
+      user: req.user._id,
+      images: req.body.images 
     });
     res.json(journalEntry);
   } catch (err) {

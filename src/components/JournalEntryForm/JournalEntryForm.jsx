@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 export default function JournalEntryForm({ onSubmit }) {
   const [title, setTitle] = useState('');
+  const [location, setLocation] = useState('');
   const [content, setContent] = useState('');
   const [date, setDate] = useState('');
   const [images, setImages] = useState([]);
@@ -12,8 +13,9 @@ export default function JournalEntryForm({ onSubmit }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onSubmit({ title, content, date, images });
+    onSubmit({ title, location, content, date, images });
     setTitle('');
+    setLocation('');
     setContent('');
     setDate('');
     setImages([]);
@@ -24,12 +26,23 @@ export default function JournalEntryForm({ onSubmit }) {
       <h2>Create a New Journal Entry</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Title:</label>
+          <label>Post Title:</label>
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
+            placeholder="Caption this post!"
+
+          />
+        </div>
+        <div>
+          <label>Location:</label>
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="Where'd you travel to?"
           />
         </div>
         <div>
@@ -38,6 +51,7 @@ export default function JournalEntryForm({ onSubmit }) {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
+            placeholder="Tell us about your experience!"
           ></textarea>
         </div>
         <div>

@@ -38,7 +38,7 @@ export default function JournalEntryEditForm({ entry, onClose, onUpdate }) {
       <h2>Edit Journal Entry</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Title:</label>
+          <label>Post Title:</label>
           <input
             type="text"
             name="title"
