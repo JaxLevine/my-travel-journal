@@ -1,4 +1,3 @@
-// journalEntries.js (server-side)
 const JournalEntry = require('../../models/journalEntry');
 const User = require('../../models/user');
 

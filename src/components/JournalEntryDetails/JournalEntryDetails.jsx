@@ -1,9 +1,9 @@
-// JournalEntryDetails.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import * as journalEntriesAPI from '../../utilities/journalEntries-api';
 import { getUser } from '../../utilities/users-service';
 import JournalEntryEditForm from '../JournalEntryEditForm/JournalEntryEditForm';
+import './JournalEntryDetails.css';
 
 export default function JournalEntryDetails() {
   const { id } = useParams();
@@ -85,32 +85,35 @@ export default function JournalEntryDetails() {
       onClose={() => setIsEditing(false)}
       onUpdate={handleUpdate}
     />
-  ) : isOwner ? (
-    <div>
-      <h1>{entry.title}</h1>
-      <p>By: {entry.user.name}</p>
-      <p>{entry.content}</p>
-      <p>{new Date(entry.date).toLocaleDateString()}</p>
-      <div>
-        {(entry.mediaUrls ?? []).map((imageUrl, index) => (
-          <img key={index} src={imageUrl} alt={`Image ${index + 1}`} />
-        ))}
-      </div>
-      <div>
-        <button onClick={handleEdit}>Edit Entry</button>
-        <button onClick={handleDelete}>Delete Entry</button>
-      </div>
-    </div>
   ) : (
-    <div>
-      <h1>{entry.title}</h1>
-      <p>By: {entry.user.name}</p>
-      <p>{entry.content}</p>
-      <p>{new Date(entry.date).toLocaleDateString()}</p>
-      <div>
-        {(entry.mediaUrls ?? []).map((imageUrl, index) => (
-          <img key={index} src={imageUrl} alt={`Image ${index + 1}`} />
-        ))}
+    <div className="entry-details-container">
+      <div className="entry-details">
+        <h1 className="entry-title">{entry.title}</h1>
+        <p className="entry-author">By: {entry.user.name}</p>
+        <p className="entry-date">{new Date(entry.date).toLocaleDateString()}</p>
+        <div className="entry-content">
+          <p>{entry.content}</p>
+        </div>
+        <div className="entry-images">
+          {(entry.mediaUrls ?? []).map((imageUrl, index) => (
+            <img
+              key={index}
+              src={imageUrl}
+              alt={`Image ${index + 1}`}
+              className="entry-image"
+            />
+          ))}
+        </div>
+        {isOwner && (
+          <div className="entry-actions">
+            <button onClick={handleEdit} className="btn btn-primary">
+              Edit Entry
+            </button>
+            <button onClick={handleDelete} className="btn btn-danger">
+              Delete Entry
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
