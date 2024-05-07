@@ -23,9 +23,8 @@ export default function Profile() {
 
   return (
     <div>
-      <h1>My Profile</h1>
+      <h1>My Journal Entries</h1>
       <div>
-        <h2>My Journal Entries</h2>
         {error && <p className="error-message">{error}</p>}
         {entries.length === 0 ? (
           <p>No entries found.</p>

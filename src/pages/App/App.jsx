@@ -20,7 +20,6 @@ export default function App() {
           <>
             <NavBar user={user} setUser={setUser} />
             <Routes>
-              {/* Route components in here */}
               <Route path="/profile" element={<Profile/>} />
               <Route path="/home" element={<Home />} />
               <Route path="/entries/:id/edit" element={<JournalEntryEditForm />} />

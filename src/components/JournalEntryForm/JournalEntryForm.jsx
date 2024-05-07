@@ -62,15 +62,6 @@ export default function JournalEntryForm({ onSubmit }) {
             required
           />
         </div>
-        <div>
-          <label>Images:</label>
-          <input
-            type="file"
-            multiple
-            accept="image/*"
-            onChange={handleImageChange}
-          />
-        </div>
         <button type="submit">Create Entry</button>
       </form>
     </div>

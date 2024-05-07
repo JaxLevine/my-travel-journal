@@ -89,10 +89,14 @@ export default function JournalEntryDetails() {
     <div className="entry-details-container">
       <div className="entry-details">
         <h1 className="entry-title">{entry.title}</h1>
-        <p className="entry-author">By: {entry.user.name}</p>
-        <p className="entry-date">{new Date(entry.date).toLocaleDateString()}</p>
-        <div className="entry-content">
-          <p>{entry.content}</p>
+        <div className="entry-content-wrapper">
+          <div className="entry-content">
+            <p>{entry.content}</p>
+          </div>
+          <div className="entry-metadata">
+            <p className="entry-author">By: {entry.user.name}</p>
+            <p className="entry-date">{new Date(entry.date).toLocaleDateString()}</p>
+          </div>
         </div>
         <div className="entry-images">
           {(entry.mediaUrls ?? []).map((imageUrl, index) => (
