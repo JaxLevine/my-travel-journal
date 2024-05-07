@@ -18,4 +18,5 @@
 *Contiue to develop the application to get active users and create brand awareness<br>
 
 
-## Get Started with XENA
+## Get Started with JourneyLog
+https://journeylog-54926bee1d86.herokuapp.com/home
