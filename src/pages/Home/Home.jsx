@@ -19,7 +19,7 @@ function Home() {
 
   return (
     <div>
-      <h1>Welcome to Travel Journal</h1>
+      <h1>Welcome to JourneyLog</h1>
       <p>Start documenting your travel adventures!</p>
       <div>
         <h2>Home Feed</h2>
