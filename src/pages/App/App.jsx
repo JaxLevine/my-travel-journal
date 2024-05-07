@@ -8,6 +8,7 @@ import NavBar from '../../components/NavBar/NavBar';
 import { getUser } from '../../utilities/users-service';
 import JournalEntryDetails from '../../components/JournalEntryDetails/JournalEntryDetails';
 import JournalEntryEditForm from '../../components/JournalEntryForm/JournalEntryForm';
+import CreateJournalEntry from '../../components/CreateJournalEntry/CreateJournalEntry';
 
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
               <Route path="/entries/:id/edit" element={<JournalEntryEditForm />} />
               <Route path="/entries/:id/view" element={<JournalEntryDetails />} />
               <Route path="/entries/:id" element={<JournalEntryDetails />} />
+              <Route path="/create-entry" element={<CreateJournalEntry />} />
             </Routes>
           </>
           :

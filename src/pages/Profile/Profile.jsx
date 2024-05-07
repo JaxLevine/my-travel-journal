@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import JournalEntryForm from '../../components/JournalEntryForm/JournalEntryForm';
 import * as journalEntriesAPI from '../../utilities/journalEntries-api';
 import { getUser } from '../../utilities/users-service';
 
@@ -22,26 +21,9 @@ export default function Profile() {
     fetchEntries();
   }, [user._id]);
 
-  async function handleCreateEntry(newEntry) {
-    try {
-      console.log('Creating entry with data:', newEntry);
-      const createdEntry = await journalEntriesAPI.create({
-        ...newEntry,
-        user: null
-      });
-      setEntries((prevEntries) => [...prevEntries, createdEntry]);
-    } catch (error) {
-      console.error('Error creating entry:', error);
-      setError('Failed to create journal entry. Please try again.');
-    }
-  }
-
   return (
     <div>
       <h1>My Profile</h1>
-      <div>
-        <JournalEntryForm onSubmit={handleCreateEntry} />
-      </div>
       <div>
         <h2>My Journal Entries</h2>
         {error && <p className="error-message">{error}</p>}

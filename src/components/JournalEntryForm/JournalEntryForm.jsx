@@ -23,7 +23,6 @@ export default function JournalEntryForm({ onSubmit }) {
 
   return (
     <div>
-      <h2>Create a New Journal Entry</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Post Title:</label>
